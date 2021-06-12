@@ -1,9 +1,7 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
-import {Image} from 'react-native';
-import {Text} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {Text, View, Image, ActivityIndicator, FlatList} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {PokemonCard} from '../components/PokemonCard';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 import {styles} from '../theme/appTheme';
 
@@ -17,32 +15,40 @@ export const HomeScreen = () => {
         source={require('../assets/pokebola.png')}
         style={styles.pokebolaBG}
       />
-      <FlatList
-        data={simplePokemonList}
-        keyExtractor={pokemon => pokemon.id}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <Image
-            source={{uri: item.picture}}
-            style={{width: 100, height: 100}}
-          />
-        )}
-        //Pagination
-        onEndReached={loadPokemons}
-        onEndReachedThreshold={0.4}
-        ListFooterComponent={
-          <ActivityIndicator
-            style={{
-              height: 100,
-            }}
-            size={20}
-            color="grey"
-          />
-        }
-      />
-      {/* <Text style={{...styles.title, ...styles.globalMargin, top: top + 20}}>
-        Pokedex
-      </Text> */}
+      <View style={{alignItems: 'center'}}>
+        <FlatList
+          data={simplePokemonList}
+          keyExtractor={pokemon => pokemon.id.toString()}
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+          //Header
+          ListHeaderComponent={
+            <Text
+              style={{
+                ...styles.title,
+                ...styles.globalMargin,
+                top: top + 20,
+                marginBottom: 20,
+                paddingBottom: 10,
+              }}>
+              Pokedex
+            </Text>
+          }
+          renderItem={({item}) => <PokemonCard pokemon={item} />}
+          //Pagination
+          onEndReached={loadPokemons}
+          onEndReachedThreshold={0.4}
+          ListFooterComponent={
+            <ActivityIndicator
+              style={{
+                height: 100,
+              }}
+              size={20}
+              color="grey"
+            />
+          }
+        />
+      </View>
     </>
   );
 };
