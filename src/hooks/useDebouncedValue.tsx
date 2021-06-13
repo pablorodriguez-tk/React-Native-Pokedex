@@ -13,5 +13,5 @@ export const useDebouncedValue = (input: string = '', time: number = 500) => {
     };
   }, [input]);
 
-  return {debouncedValue};
+  return debouncedValue;
 };

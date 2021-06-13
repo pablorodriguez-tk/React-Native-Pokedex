@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {pokemonApi} from '../api/pokemonApi';
 import {
   PokemonPaginetedResponse,
